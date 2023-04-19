@@ -1,0 +1,189 @@
+・転置
+1 2 3
+4 5 6
+7 8 9
+
+1 4 7
+2 5 8
+3 6 9
+
+forで２回回すのは遅いので
+array = list(map(list,zip(*array_list)))
+タプルにしたいなら
+array = zip(*array_list)
+
+・再帰の繰り返し
+import sys
+sys.setrecursionlimit(10**7)
+
+・グラフがループかどうか
+unionfindのsameで親が同じだったらループ
+
+・defaultdict
+from collections import defaultdict
+
+・メモ化再帰
+from functools import lru_cache
+@lru_cache(maxsize=1000)
+#1000変更可能
+
+・3つ以上の数字の最大公約数を求めたい時
+
+import functools
+import math
+
+A = [1,2,3,..]
+list_gcd = functools.reduce(math.gcd,A)
+
+・グリッド状に正方形があるかどうか
+2つの座標が与えられた時(x1,y1),(x2,y2)
+まずベクトルを求める
+dx = x2 - x1,dy = y2 - y1
+そして
+(x3,y3) = (x1-dy,y1+dx)
+(x4,y4) = (x2-dy,y2+dx)
+この座標の2つがグリッドにあれば正方形
+そして２で割る
+
+・辞書の値の最大値のキーを取得
+dict = {a:1,a:2,...}
+max_value = max({dict}.values())
+max_key = [k for k, v in ll.items() if v == max_value][0]
+
+・csr
+# i: 現在いる頂点
+# j: iから直接移動可能な頂点
+for j in elist[start[i]:start[i+1]]:
+    ...
+例
+elist = [1,4,2,3,5,2,5,6,5];start = [0,2,4,5,7,8,8,9]
+i = 1
+for j in elist[start[1]:start[2]]:
+    start[1] = 2;start[2] = 4
+    elist[2:4]
+    j = 2,3
+つまり１からいけるのは2,3ということになる
+
+・レーベンシュタイン距離
+文字列Sを文字列Tにするとき、文字を最小で変更、削除、挿入をする回数を求める
+やり方
+dp[h][w] = min(dp[h-1][w] + 1, dp[h][w-1] + 1, dp[h-1][w-1] + c)
+ただしcはS[i] == T[i]のとき0、S[i] != T[i] のとき１
+
+・リストの中の出現回数が多い上位N個の値を受け取る方法
+from collections import Counter
+N = int(input());A = list(map(int,input().split()))
+d = Counter(A)#ここでそれぞれの要素が何個あるかカウント
+cnt = d.most_common(N)#上位N位の値を受け取る（このとき[(0,5),(3,4)](要素、個数))
+for i in range(N):
+    print(cnt[i][0])
+
+・2つの文字がアナグラム（文字列を入れ替えて同じかどうか）かどうか判定する方法
+a = "abc"; b = "bcc"
+def solve(a,b):
+    if a is None or b is None: return False
+    if len(a) != len(b): return False
+    if sorted(a) != sorted(b): return False#sorted(文字列)すると辞書順に揃うため判定できる
+
+    return True
+
+・あまり
+A を x で割ったときの商を q とおくと、
+A=xq+B
+
+・複数のセットから共通部分を抜き出す方法
+from functools import reduce
+
+list1 = [1, 2, 3, 4, 5]
+list2 = [4, 5, 6, 7, 8]
+list3 = [1, 4, 7, 10]
+
+# リストを集合に変換
+set1 = set(list1)
+set2 = set(list2)
+set3 = set(list3)
+
+# 全ての集合の共通要素を抜き取る
+common_elements = reduce(set.intersection, [set1, set2, set3])
+
+# 結果を表示
+print(common_elements)
+
+・bisect_left,bisect_rightの違い
+ソートされたリストに値がない場合
+arr = [1,3,5]
+bisect_left(arr,4)   = 2
+bisect_right(arr,4)  = 2
+値がある場合
+bisect_left(arr,5)   =  2 (値のインデックス番号を指定する)
+bisect_right(arr,5)  =  3 (値のインデックス番号＋１が指定する)
+
+・roundとintの違い
+3.7のときround(3.7) = 4
+         int(3.7) = 3
+つまりroundは四捨五入 intは切り捨て
+
+・divmodの使い方
+divmodは商と余りを同時に算出できる
+q = 10 // 3 -> 3
+mod = 10 % 3 -> 1
+divmod(割られる数,わる数)
+q,mod = divmod(10,3) -> 3,1
+応用して10進数からn進数に変換する方法
+N = 10
+result = ""
+while N > 0:
+    N,mod = divmod(N,n)
+    result = str(mod) + result
+・powの使い方
+N = 100,r = 2,mod=3
+pow(N,r,mod) -> 1
+
+・ラングレス圧縮について
+連続して現れる符号を、繰り返しの回数を表す値に置き換える方式
+arr = 'xxxooox'
+arrを'xxx' 'ooo' 'x'と分ける
+langres = [3,3,1]
+他例) 'xxoooxxox' 'xx','ooo','xx','o',x
+コード
+langless = []
+idx = 0
+tmp = 1
+while idx < N:
+    if idx + 1 >= N:
+        break
+    if S[idx] != S[idx+1]:
+        langless.append(tmp)
+        tmp = 0
+    idx += 1
+    tmp += 1
+langless.append(tmp)
+
+・LIS(longest increasing subsequent)(たしかこんな名前)最長部分連続和(非連続)
+o(n^2)
+例
+arr = [0]+[3,6,4,2,7,8]
+dpの配列を(len(arr)+1)を作る(1-indexedにするため)
+そしてdp[1] = 1とする、なぜなら3一つなので
+そしてarr[2]からはじめていく
+arr[2] -> arr[range(1,2)]までつまり
+木2が右端になる最大の本数をみたい
+よって
+木2のとき3,6なので2
+木3のとき3,4なので2................とづづく
+arr[i]
+    arr[j = range(1,i)]
+dp[i] = max(dp[i],dp[j]+1)となる
+o(lon_2n)
+dp[j] = 長さ j の増加部分列の中で、各列の右端となる要素の最小値
+なのでarr = [3,6,4,2,7,8]としdpの配列を(len(arr)+1)つくる、また初期値をINFにしておく
+そしてdp[0] = -1とする arrの中の値が0より左にいってほしくないため
+そしてある値aがdpのどこにそうにゅうすればいいのか考える。
+それは、dpにたいして２分探索をして挿入する場所を探す
+そしてidx = bisect_right(dp,a)としてそのidxの場所が長さidxの増加部分列の中で
+各列の右端となる要素の最長値がmin(a,dp[idx])(もとからあってそれがaよりも小さい場合aは最小値にならないため)になるということ
+
+・ある数値xが整数かどうか判定
+x.is_integer()
+if x.is_integer()がTrue->整数
+else:->少数

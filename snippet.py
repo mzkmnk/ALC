@@ -2,13 +2,12 @@ import sys, re
 #------pypyで再帰などを提出する場合は下記２行を使用-----
 #import pypyjit
 #pypyjit.set_param('max_unroll_recursion=-1')
-from collections import defaultdict
 import numpy as np
 from math import ceil, floor, sqrt, pi, factorial, gcd,isfinite
 from copy import deepcopy
-from collections import Counter, deque
+from collections import Counter, deque,defaultdict
 from heapq import heapify, heappop, heappush
-from itertools import accumulate, product, combinations, combinations_with_replacement
+from itertools import accumulate, product, combinations, combinations_with_replacement,permutations
 from bisect import bisect, bisect_left, bisect_right
 from functools import reduce,lru_cache
 #メモ化の場合は下記を使用

@@ -7,7 +7,7 @@ from math import ceil, floor, sqrt, pi, factorial, gcd,isfinite
 from copy import deepcopy
 from collections import Counter, deque,defaultdict
 from heapq import heapify, heappop, heappush
-from itertools import accumulate, product, combinations, combinations_with_replacement,permutations
+from itertools import accumulate, product, combinations, combinations_with_replacement,permutations,groupby
 from bisect import bisect, bisect_left, bisect_right
 from functools import reduce,lru_cache
 #メモ化の場合は下記を使用

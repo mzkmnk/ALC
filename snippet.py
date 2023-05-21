@@ -2,7 +2,7 @@ import sys, re
 #------pypyで再帰などを提出する場合は下記２行を使用-----
 #import pypyjit
 #pypyjit.set_param('max_unroll_recursion=-1')
-import numpy as np
+#import numpy as np
 from math import ceil, floor, sqrt, pi, factorial, gcd,isfinite
 from copy import deepcopy
 from collections import Counter, deque,defaultdict
